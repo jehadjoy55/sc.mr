@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engagement Certificate</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', serif;
+            background-color: #f8f4e3;
+            color: #000;
+            text-align: center;
+        }
+
+        .certificate {
+            width: 80%;
+            max-width: 700px;
+            margin: 50px auto;
+            border: 15px solid #c59d5f;
+            padding: 30px;
+            background: #fff;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .certificate::before,
+        .certificate::after {
+            content: '';
+            position: absolute;
+            top: -15px;
+            bottom: -15px;
+            width: 20px;
+            background-color: #c59d5f;
+        }
+
+        .certificate::before {
+            left: -15px;
+        }
+
+        .certificate::after {
+            right: -15px;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #c59d5f;
+        }
+
+        h2 {
+            font-size: 22px;
+            margin: 10px 0;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            font-size: 18px;
+            margin: 15px 0;
+        }
+
+        .arabic {
+            font-family: 'Traditional Arabic', 'Arial', sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #444;
+        }
+
+        .names {
+            font-size: 22px;
+            font-weight: bold;
+            color: #c59d5f;
+            margin: 20px 0;
+        }
+
+        .and {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #000;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .fingerprints {
+            margin-top: 30px;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .border-design {
+            border: 2px solid #c59d5f;
+            padding: 10px 0;
+            margin: 0 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <h1>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</h1>
+        <p class="arabic">وَخَلَقْنَاكُمْ أَزْوَاجًا</p>
+        <h3>"And We created you in pairs." (Surah an-Naba)</h3>
+        
+        <h2>This agreement made according to Qur'an and Sunnah</h2>
+        <h3>to certify the engagement of</h3>
+
+        <div class="names">MD JEHADUR RAHOMAN JOY</div>
+        <h3>Son of Mr and Mrs Saiful Islam</h3>
+
+        <div class="and">&amp;</div>
+
+        <div class="names">MAHNOOR AKTHER ABONI</div>
+        <h3>Daughter of Mr and Mrs Zakir Hossain</h3>
+
+        <div class="footer">
+            <div class="border-design">BRIDE</div>
+            <div class="border-design">GROOM</div>
+        </div>
+
+        <div class="fingerprints">FINGERPRINTS</div>
+    </div>
+</body>
+</html>
