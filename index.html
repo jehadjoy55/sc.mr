@@ -151,14 +151,16 @@
         }
 
         canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
             for (let i = 0; i < 10; i++) {
-                particles.push(new Particle(e.x, e.y));
+                particles.push(new Particle(e.clientX - rect.left, e.clientY - rect.top));
             }
         });
 
         canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
             for (let i = 0; i < 2; i++) {
-                particles.push(new Particle(e.x, e.y));
+                particles.push(new Particle(e.clientX - rect.left, e.clientY - rect.top));
             }
         });
 
@@ -191,4 +193,3 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </body>
 </html>
-
