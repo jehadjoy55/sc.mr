@@ -5,23 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Engagement Certificate</title>
     <style>
-        body {
+        body, html {
             margin: 0;
             padding: 0;
+            overflow: hidden; /* Hide overflow for fullscreen effect */
             font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #f9f9f9;
         }
+
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Send to background */
+        }
+
         .container {
+            position: relative;
+            z-index: 10; /* Ensure it's above the background animation */
             max-width: 100%;
             padding: 20px;
-            overflow-y: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         img {
             max-width: 90%;
             height: auto;
@@ -29,6 +38,7 @@
             border: 2px solid #ccc;
             border-radius: 8px;
         }
+
         button {
             margin: 20px 0;
             padding: 10px 20px;
@@ -39,41 +49,109 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
 <body>
+    <canvas id="canvas"></canvas>
     <div class="container">
-        <h1>Engagement Certificate</h1>
+        <h1 style="color: white; text-shadow: 2px 2px 5px #000;">Engagement Certificate</h1>
         <img src="engagement-certificate.jpg" alt="Engagement Certificate">
         <button id="savePdf">Save as PDF</button>
     </div>
 
     <script>
+        // Background Animation
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const colors = ['#FFD700', '#FFFACD', '#FFEC8B', '#F0E68C', '#FFE4B5'];
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.02;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+        }
+
+        function handleParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                if (particles[i].size <= 0.2) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            handleParticles();
+            requestAnimationFrame(animate);
+        }
+
+        canvas.addEventListener('click', (e) => {
+            for (let i = 0; i < 10; i++) {
+                particles.push(new Particle(e.x, e.y));
+            }
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            for (let i = 0; i < 2; i++) {
+                particles.push(new Particle(e.x, e.y));
+            }
+        });
+
+        animate();
+
+        // Save as PDF
         document.getElementById('savePdf').addEventListener('click', () => {
-            // Use jsPDF to generate a PDF
             const { jsPDF } = window.jspdf || {};
             if (jsPDF) {
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 const image = document.querySelector('img');
 
-                // Add image to PDF
                 pdf.text("Engagement Certificate", 10, 10); // Add title
-                const imgWidth = 190; // A4 width (adjusted)
-                const imgHeight = (image.naturalHeight / image.naturalWidth) * imgWidth; // Maintain aspect ratio
+                const imgWidth = 190; // A4 width
+                const imgHeight = (image.naturalHeight / image.naturalWidth) * imgWidth;
 
                 pdf.addImage(image.src, 'JPEG', 10, 20, imgWidth, imgHeight);
-
-                // Save PDF
                 pdf.save('Engagement_Certificate.pdf');
             } else {
                 alert('Error: jsPDF library is required for this functionality.');
             }
         });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </body>
 </html>
-
