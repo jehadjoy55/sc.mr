@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Engagement Certificate</title>
     <style>
+        /* Universal styles */
         body, html {
             margin: 0;
             padding: 0;
-            overflow: hidden; /* Hide overflow for fullscreen effect */
+            overflow: hidden;
             font-family: Arial, sans-serif;
         }
 
@@ -18,24 +19,26 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Send to background */
+            z-index: -1;
         }
 
         .container {
             position: relative;
-            z-index: 10; /* Ensure it's above the background animation */
+            z-index: 10;
             max-width: 100%;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-y: auto;
+            height: 100vh; /* Allow scroll for mobile */
         }
 
         img {
             max-width: 90%;
             height: auto;
             margin: 20px 0;
-            border: 2px solid #ccc;
+            border: 2px solid var(--border-color);
             border-radius: 8px;
         }
 
@@ -43,22 +46,55 @@
             margin: 20px 0;
             padding: 10px 20px;
             font-size: 16px;
-            color: #fff;
-            background-color: #007BFF;
+            color: var(--button-text-color);
+            background-color: var(--button-bg-color);
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: var(--button-bg-hover-color);
+        }
+
+        h1 {
+            color: var(--text-color);
+            text-shadow: 2px 2px 5px var(--shadow-color);
+        }
+
+        /* Light theme variables */
+        :root {
+            --background-color: #f0f8ff;
+            --text-color: #333;
+            --border-color: #ccc;
+            --button-bg-color: #007BFF;
+            --button-text-color: #fff;
+            --button-bg-hover-color: #0056b3;
+            --shadow-color: #000;
+        }
+
+        /* Dark theme variables */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-color: #121212;
+                --text-color: #f0f8ff;
+                --border-color: #555;
+                --button-bg-color: #1a73e8;
+                --button-text-color: #fff;
+                --button-bg-hover-color: #004ba0;
+                --shadow-color: #666;
+            }
+        }
+
+        body {
+            background-color: var(--background-color);
         }
     </style>
 </head>
 <body>
     <canvas id="canvas"></canvas>
     <div class="container">
-        <h1 style="color: white; text-shadow: 2px 2px 5px #000;">Engagement Certificate</h1>
+        <h1>Engagement Certificate</h1>
         <img src="engagement-certificate.jpg" alt="Engagement Certificate">
         <button id="savePdf">Save as PDF</button>
     </div>
@@ -155,3 +191,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </body>
 </html>
+
